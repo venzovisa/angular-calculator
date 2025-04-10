@@ -1,0 +1,86 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 3.125rem;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.125rem;
+    margin: 0;
+    font-family:
+        "Inter Tight",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol";
+}
+
+p {
+    margin: 0;
+    color: var(--gray-700);
+}
+
+main {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: inherit;
+    position: relative;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 3rem;
+}
+
+.queue {
+    text-align: right;
+    min-height: 43px;
+}
+
+.display {
+    margin-bottom: 4px;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+    pointer-events: none;
+    width: 100%;
+}
+
+.button {
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.button:hover {
+    cursor: pointer;
+    background: #e0e0e0;
+}
+
+.button-group {
+    display: grid;
+    gap: 4px;
+    grid-template-columns: repeat(4, 1fr);
+}

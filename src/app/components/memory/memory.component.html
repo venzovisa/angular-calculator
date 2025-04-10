@@ -1,0 +1,7 @@
+@for (item of memoryItems | async; track $index) {
+<article class="memory-item">
+  <div>{{ item.date }}</div>
+  <div>{{ item.expression }}</div>
+  <div>{{ item.result }}</div>
+</article>
+}

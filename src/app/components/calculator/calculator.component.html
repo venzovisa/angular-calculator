@@ -1,0 +1,26 @@
+<div class="queue">
+  {{ leftNumber }} {{ currentOperation }} {{ rightNumber }}
+</div>
+<input class="display" readonly [value]="displayValue" />
+<section class="button-group">
+  <div class="button">%</div>
+  <div class="button" (click)="updateOperation('^')">x^n</div>
+  <div class="button" (click)="clearAll()">CE</div>
+  <div class="button" (click)="removeSingleDigit()">Remove</div>
+  <div class="button" (click)="updateValue('7')">7</div>
+  <div class="button" (click)="updateValue('8')">8</div>
+  <div class="button" (click)="updateValue('9')">9</div>
+  <div class="button" (click)="updateOperation('X')">X</div>
+  <div class="button" (click)="updateValue('4')">4</div>
+  <div class="button" (click)="updateValue('5')">5</div>
+  <div class="button" (click)="updateValue('6')">6</div>
+  <div class="button" (click)="updateOperation('-')">-</div>
+  <div class="button" (click)="updateValue('1')">1</div>
+  <div class="button" (click)="updateValue('2')">2</div>
+  <div class="button" (click)="updateValue('3')">3</div>
+  <div class="button" (click)="updateOperation('+')">+</div>
+  <div class="button" (click)="switchSign()">+/-</div>
+  <div class="button" (click)="updateValue('0')">0</div>
+  <div class="button" (click)="updateValue('.')">.</div>
+  <div class="button" (click)="calculateExpression()">=</div>
+</section>
