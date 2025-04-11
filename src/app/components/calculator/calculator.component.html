@@ -6,7 +6,9 @@
   <div class="button" (click)="updateOperation(operations.PERCENT)">%</div>
   <div class="button" (click)="updateOperation(operations.POWER)">x^n</div>
   <div class="button" data-testid="button-clear" (click)="clearAll()">CE</div>
-  <div class="button" (click)="removeSingleDigit()">Remove</div>
+  <div class="button" data-testid="button-remove" (click)="removeSingleDigit()">
+    Remove
+  </div>
   <div
     class="button"
     data-testid="button-sqrt"
@@ -51,7 +53,9 @@
   <div class="button" data-testid="button-five" (click)="updateValue('5')">
     5
   </div>
-  <div class="button" (click)="updateValue('6')">6</div>
+  <div class="button" data-testid="button-six" (click)="updateValue('6')">
+    6
+  </div>
   <div
     class="button"
     data-testid="button-substract"

@@ -1,8 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CalculatorComponent } from './calculator.component';
 import { ActivatedRoute } from '@angular/router';
-import { MemoryService } from '../../services/memory.service';
 
 class MockRouter {
   snapshot = {
@@ -32,7 +30,7 @@ describe('CalculatorComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should load calculator with correct saved value', () => {
+  it('should render calculator with correct saved value', () => {
     const inputField = fixture.nativeElement.querySelector(
       "[data-testid='display']"
     );
@@ -183,5 +181,54 @@ describe('CalculatorComponent', () => {
     fixture.detectChanges();
 
     expect(inputField.value).toEqual('72');
+  });
+
+  it('should render correct value when calculate square root of 9', () => {
+    const buttonClear = fixture.nativeElement.querySelector(
+      "[data-testid='button-clear']"
+    );
+    buttonClear.dispatchEvent(new Event('click'));
+
+    const buttonNine = fixture.nativeElement.querySelector(
+      "[data-testid='button-nine']"
+    );
+    buttonNine.dispatchEvent(new Event('click'));
+
+    const buttonSqrt = fixture.nativeElement.querySelector(
+      "[data-testid='button-sqrt']"
+    );
+    buttonSqrt.dispatchEvent(new Event('click'));
+
+    const inputField = fixture.nativeElement.querySelector(
+      "[data-testid='display']"
+    );
+    fixture.detectChanges();
+
+    expect(inputField.value).toEqual('3');
+  });
+
+  it('should render correct value when remove single digit', () => {
+    const buttonClear = fixture.nativeElement.querySelector(
+      "[data-testid='button-clear']"
+    );
+    buttonClear.dispatchEvent(new Event('click'));
+
+    const buttonSix = fixture.nativeElement.querySelector(
+      "[data-testid='button-six']"
+    );
+    buttonSix.dispatchEvent(new Event('click'));
+    buttonSix.dispatchEvent(new Event('click'));
+
+    const buttonRemove = fixture.nativeElement.querySelector(
+      "[data-testid='button-remove']"
+    );
+    buttonRemove.dispatchEvent(new Event('click'));
+
+    const inputField = fixture.nativeElement.querySelector(
+      "[data-testid='display']"
+    );
+    fixture.detectChanges();
+
+    expect(inputField.value).toEqual('6');
   });
 });

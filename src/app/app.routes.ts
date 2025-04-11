@@ -4,6 +4,11 @@ import { MemoryComponent } from './components/memory/memory.component';
 
 export const routes: Routes = [
   {
+    path: '',
+    component: CalculatorComponent,
+    title: 'Calculator',
+  },
+  {
     path: 'calculator/:value',
     component: CalculatorComponent,
     title: 'Calculator',
