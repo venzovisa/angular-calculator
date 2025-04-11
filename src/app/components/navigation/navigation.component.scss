@@ -1,0 +1,21 @@
+.navigation {
+    margin-bottom: 4px;
+}
+
+.nav-button {
+    display: inline-block;
+    margin-right: 4px;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 18px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    &.active {
+        background: #e0e0e0;
+    }
+    &:active {
+        color: #000;
+    }
+}

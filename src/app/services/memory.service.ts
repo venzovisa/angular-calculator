@@ -14,6 +14,15 @@ export class MemoryService {
 
   setMemory(item: MemoryItem) {
     this.data.value.push(item);
+
+    if (this.data.value.length > 100) {
+      this.data.value.shift();
+    }
+
     this.data.next(this.data.value);
+  }
+
+  removeMemoryItem(id: string) {
+    this.data.next(this.data.value.filter((item) => item.id !== id));
   }
 }

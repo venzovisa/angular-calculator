@@ -1,7 +1,14 @@
 @for (item of memoryItems | async; track $index) {
 <article class="memory-item">
+  <div class="buttons">
+    <button class="btn-memory-item" (click)="useMemoryItem(item.result)">
+      use
+    </button>
+    <button class="btn-memory-item" (click)="removeMemoryItem(item.id)">
+      remove
+    </button>
+  </div>
   <div>{{ item.date }}</div>
-  <div>{{ item.expression }}</div>
-  <div>{{ item.result }}</div>
+  <div>{{ item.expression }} = {{ item.result }}</div>
 </article>
 }

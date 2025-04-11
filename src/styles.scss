@@ -24,11 +24,6 @@ h1 {
         "Segoe UI Symbol";
 }
 
-p {
-    margin: 0;
-    color: var(--gray-700);
-}
-
 main {
     width: 100%;
     min-height: 100%;
@@ -49,38 +44,14 @@ main {
     margin-bottom: 3rem;
 }
 
-.queue {
-    text-align: right;
-    min-height: 43px;
-}
-
-.display {
-    margin-bottom: 4px;
-    border: 1px solid black;
-    border-radius: 4px;
-    padding: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    text-align: right;
-    pointer-events: none;
-    width: 100%;
-}
-
 .button {
     border: 1px solid black;
     border-radius: 4px;
     padding: 10px;
     font-size: 18px;
     text-align: center;
-}
-
-.button:hover {
-    cursor: pointer;
-    background: #e0e0e0;
-}
-
-.button-group {
-    display: grid;
-    gap: 4px;
-    grid-template-columns: repeat(4, 1fr);
+    &:hover {
+        cursor: pointer;
+        background: #e0e0e0;
+    }
 }

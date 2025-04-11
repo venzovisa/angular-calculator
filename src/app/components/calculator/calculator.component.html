@@ -1,26 +1,92 @@
 <div class="queue">
   {{ leftNumber }} {{ currentOperation }} {{ rightNumber }}
 </div>
-<input class="display" readonly [value]="displayValue" />
+<input class="display" data-testid="display" readonly [value]="displayValue" />
 <section class="button-group">
-  <div class="button">%</div>
-  <div class="button" (click)="updateOperation('^')">x^n</div>
-  <div class="button" (click)="clearAll()">CE</div>
+  <div class="button" (click)="updateOperation(operations.PERCENT)">%</div>
+  <div class="button" (click)="updateOperation(operations.POWER)">x^n</div>
+  <div class="button" data-testid="button-clear" (click)="clearAll()">CE</div>
   <div class="button" (click)="removeSingleDigit()">Remove</div>
-  <div class="button" (click)="updateValue('7')">7</div>
-  <div class="button" (click)="updateValue('8')">8</div>
-  <div class="button" (click)="updateValue('9')">9</div>
-  <div class="button" (click)="updateOperation('X')">X</div>
-  <div class="button" (click)="updateValue('4')">4</div>
-  <div class="button" (click)="updateValue('5')">5</div>
+  <div
+    class="button"
+    data-testid="button-sqrt"
+    (click)="updateOperation(operations.SQRT)"
+  >
+    sqrt(x)
+  </div>
+  <div
+    class="button"
+    data-testid="button-factorial"
+    (click)="updateOperation(operations.FACTORIAL)"
+  >
+    n!
+  </div>
+  <div class="button" (click)="updateOperation(operations.DIVISION)">/</div>
+  <div
+    class="button"
+    data-testid="button-divide"
+    (click)="updateOperation(operations.DIVISION)"
+  >
+    /
+  </div>
+  <div class="button" data-testid="button-seven" (click)="updateValue('7')">
+    7
+  </div>
+  <div class="button" data-testid="button-eight" (click)="updateValue('8')">
+    8
+  </div>
+  <div class="button" data-testid="button-nine" (click)="updateValue('9')">
+    9
+  </div>
+  <div
+    class="button"
+    data-testid="button-multiplicate"
+    (click)="updateOperation(operations.MULTIPLICATION)"
+  >
+    X
+  </div>
+  <div class="button" data-testid="button-four" (click)="updateValue('4')">
+    4
+  </div>
+  <div class="button" data-testid="button-five" (click)="updateValue('5')">
+    5
+  </div>
   <div class="button" (click)="updateValue('6')">6</div>
-  <div class="button" (click)="updateOperation('-')">-</div>
-  <div class="button" (click)="updateValue('1')">1</div>
-  <div class="button" (click)="updateValue('2')">2</div>
-  <div class="button" (click)="updateValue('3')">3</div>
-  <div class="button" (click)="updateOperation('+')">+</div>
-  <div class="button" (click)="switchSign()">+/-</div>
-  <div class="button" (click)="updateValue('0')">0</div>
-  <div class="button" (click)="updateValue('.')">.</div>
-  <div class="button" (click)="calculateExpression()">=</div>
+  <div
+    class="button"
+    data-testid="button-substract"
+    (click)="updateOperation(operations.SUBSTRACTION)"
+  >
+    -
+  </div>
+  <div class="button" data-testid="button-one" (click)="updateValue('1')">
+    1
+  </div>
+  <div class="button" data-testid="button-two" (click)="updateValue('2')">
+    2
+  </div>
+  <div class="button" data-testid="button-three" (click)="updateValue('3')">
+    3
+  </div>
+  <div
+    class="button"
+    data-testid="button-addition"
+    (click)="updateOperation(operations.ADDITION)"
+  >
+    +
+  </div>
+  <div class="button" data-testid="button-sign" (click)="switchSign()">+/-</div>
+  <div class="button" data-testid="button-zero" (click)="updateValue('0')">
+    0
+  </div>
+  <div class="button" data-testid="button-dot" (click)="updateValue('.')">
+    .
+  </div>
+  <div
+    class="button"
+    data-testid="button-calculate"
+    (click)="calculateExpression()"
+  >
+    =
+  </div>
 </section>

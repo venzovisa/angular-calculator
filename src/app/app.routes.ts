@@ -4,13 +4,13 @@ import { MemoryComponent } from './components/memory/memory.component';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'calculator/:value',
     component: CalculatorComponent,
     title: 'Calculator',
   },
   {
     path: 'memory',
     component: MemoryComponent,
-    title: 'Calculator',
+    title: 'Memory',
   },
 ];

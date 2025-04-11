@@ -1,0 +1,22 @@
+.queue {
+    text-align: right;
+    min-height: 43px;
+}
+
+.display {
+    margin-bottom: 4px;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+    pointer-events: none;
+    width: 100%;
+}
+
+.button-group {
+    display: grid;
+    gap: 4px;
+    grid-template-columns: repeat(4, 1fr);
+}

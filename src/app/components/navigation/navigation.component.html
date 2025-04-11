@@ -1,0 +1,16 @@
+<nav class="navigation">
+  <a
+    class="nav-button"
+    title="Home"
+    [class.active]="activeRoute === '/calculator/'"
+    [routerLink]="['/calculator', '']"
+    >Home</a
+  >
+  <a
+    class="nav-button"
+    title="Memory"
+    [class.active]="activeRoute === '/memory'"
+    routerLink="/memory"
+    >Memory</a
+  >
+</nav>
