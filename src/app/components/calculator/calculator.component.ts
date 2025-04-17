@@ -1,150 +1,134 @@
 import { Component, inject } from '@angular/core';
 import { MemoryService } from '../../services/memory.service';
+import { CalculationService } from '../../services/calculation.service';
+import { DisplayService } from '../../services/display.service';
 import { operations } from '../../models';
 import { ActivatedRoute } from '@angular/router';
 import { v4 as uuidv4 } from 'uuid';
+import { ButtonComponent } from './button/button.component';
+import { ButtonType } from './button/button.types';
 
 const INITIAL_DISPLAY = '0';
 const EMPTY_VALUE = '';
 
+type OperationFunction = (left: number, right: number) => number;
+
+const operationMap: Record<string, OperationFunction> = {
+  [operations.DIVISION]: (left, right) => left / right,
+  [operations.MULTIPLICATION]: (left, right) => left * right,
+  [operations.SUBSTRACTION]: (left, right) => left - right,
+  [operations.ADDITION]: (left, right) => left + right,
+  [operations.POWER]: (left, right) => Math.pow(left, right),
+  [operations.PERCENT]: (left, right) => left * (right / 100),
+  [operations.FACTORIAL]: (left) => {
+    const factorial = (n: number): number => {
+      if (n < 2) return n;
+      return n * factorial(n - 1);
+    };
+    return factorial(left);
+  },
+};
+
 @Component({
   selector: 'app-calculator',
-  imports: [],
+  imports: [ButtonComponent],
   templateUrl: './calculator.component.html',
   styleUrl: './calculator.component.scss',
 })
 export class CalculatorComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly memoryService = inject(MemoryService);
-  displayValue = INITIAL_DISPLAY;
-  leftNumber = EMPTY_VALUE;
-  rightNumber = EMPTY_VALUE;
-  currentOperation = EMPTY_VALUE;
+  private readonly calculationService = inject(CalculationService);
+  private readonly displayService = inject(DisplayService);
+
   operations = operations;
-  private isOperationSelected = false;
+  ButtonType = ButtonType;
 
   constructor() {
     const initialValue = this.route.snapshot.paramMap.get('value');
     if (initialValue) {
-      this.displayValue = initialValue;
+      this.displayService.setDisplayValue(initialValue);
     }
   }
 
-  updateValue(value: string) {
-    if (value === '.' && this.displayValue.indexOf(value) > -1) return;
-
-    if (this.displayValue === INITIAL_DISPLAY) {
-      this.displayValue = value;
-      return;
-    }
-
-    if (this.currentOperation !== EMPTY_VALUE && !this.isOperationSelected) {
-      this.displayValue = value;
-      this.isOperationSelected = true;
-      return;
-    }
-
-    this.displayValue += value;
+  get displayValue(): string {
+    return this.displayService.getDisplayValue();
   }
 
-  removeSingleDigit() {
-    this.displayValue = this.displayValue.slice(
-      0,
-      this.displayValue.length - 1
-    );
-    if (this.displayValue.length === 0) {
-      this.displayValue = INITIAL_DISPLAY;
-    }
+  get currentOperation(): string {
+    return this.displayService.getCurrentOperation();
   }
 
-  updateOperation(operation: string) {
-    this.currentOperation = operation;
-    if (this.leftNumber === EMPTY_VALUE) {
-      this.leftNumber = this.displayValue;
-    }
+  get leftNumber(): string {
+    return this.displayService.getLeftNumber();
+  }
+
+  get rightNumber(): string {
+    return this.displayService.getRightNumber();
+  }
+
+  updateValue(value: string): void {
+    this.displayService.updateValue(value);
+  }
+
+  removeSingleDigit(): void {
+    this.displayService.removeSingleDigit();
+  }
+
+  updateOperation(operation: string): void {
+    this.displayService.setOperation(operation);
+
     if (
-      this.currentOperation === operations.SQRT &&
-      this.leftNumber !== EMPTY_VALUE
+      operation === operations.SQRT &&
+      this.displayService.getLeftNumber() !== ''
     ) {
-      const result = Math.sqrt(Number(this.leftNumber));
-      this.displayValue = String(result);
+      const result = this.calculationService.calculateSquareRoot(
+        Number(this.displayService.getLeftNumber())
+      );
+      this.displayService.setDisplayValue(String(result));
       this.memoryService.setMemory({
         id: uuidv4(),
         date: new Date().toDateString(),
-        expression: `${this.currentOperation}(${this.leftNumber})`,
+        expression: `${operation}(${this.displayService.getLeftNumber()})`,
         result,
       });
     }
   }
 
-  calculateExpression() {
-    if (this.currentOperation === EMPTY_VALUE) return;
-    const leftNumber = Number(this.leftNumber);
-    this.rightNumber = this.displayValue;
-    const rightNumber = Number(this.rightNumber);
-    let result = 0;
-    switch (this.currentOperation) {
-      case operations.DIVISION: {
-        result = leftNumber / rightNumber;
-        break;
-      }
-      case operations.MULTIPLICATION: {
-        result = leftNumber * rightNumber;
-        break;
-      }
-      case operations.SUBSTRACTION: {
-        result = leftNumber - rightNumber;
-        break;
-      }
-      case operations.ADDITION: {
-        result = leftNumber + rightNumber;
-        break;
-      }
-      case operations.POWER: {
-        result = Math.pow(leftNumber, rightNumber);
-        break;
-      }
-      case operations.PERCENT: {
-        result = leftNumber * (rightNumber / 100);
-        break;
-      }
-      case operations.FACTORIAL: {
-        const factorial = (n: number): number => {
-          if (n < 2) return n;
-          return n * factorial(n - 1);
-        };
-        result = factorial(leftNumber);
-        break;
-      }
-      default: {
-        result = 0;
-        this.clearAll();
-      }
+  calculateExpression(): void {
+    if (this.displayService.getCurrentOperation() === '') return;
+
+    const leftNumber = Number(this.displayService.getLeftNumber());
+    this.displayService.setRightNumber(this.displayService.getDisplayValue());
+    const rightNumber = Number(this.displayService.getRightNumber());
+
+    try {
+      const result = this.calculationService.calculate(
+        leftNumber,
+        rightNumber,
+        this.displayService.getCurrentOperation()
+      );
+
+      this.displayService.setDisplayValue(String(result));
+      this.displayService.setLeftNumber(String(result));
+      this.displayService.setIsOperationSelected(false);
+
+      this.memoryService.setMemory({
+        id: uuidv4(),
+        date: new Date().toDateString(),
+        expression: `${leftNumber} ${this.displayService.getCurrentOperation()} ${rightNumber}`,
+        result,
+      });
+    } catch (error) {
+      this.clearAll();
     }
-    this.displayValue = String(result);
-    this.isOperationSelected = false;
-    this.memoryService.setMemory({
-      id: uuidv4(),
-      date: new Date().toDateString(),
-      expression: `${leftNumber} ${this.currentOperation} ${rightNumber}`,
-      result,
-    });
   }
 
-  clearAll() {
-    this.displayValue = INITIAL_DISPLAY;
-    this.leftNumber = EMPTY_VALUE;
-    this.rightNumber = EMPTY_VALUE;
-    this.currentOperation = EMPTY_VALUE;
-    this.isOperationSelected = false;
+  clearAll(): void {
+    this.displayService.clearAll();
   }
 
-  switchSign() {
-    if (this.displayValue === INITIAL_DISPLAY) return;
-    if (this.displayValue[0] === '-') {
-      this.displayValue = this.displayValue.slice(1);
-    } else {
-      this.displayValue = '-' + this.displayValue;
-    }
+  switchSign(): void {
+    this.displayService.switchSign();
   }
 }
