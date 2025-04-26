@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
-import { operations } from '../models';
+import { operations } from '../../models';
 
 type OperationFunction = (left: number, right: number) => number;
 
 const operationMap: Record<string, OperationFunction> = {
-  [operations.DIVISION]: (left, right) => left / right,
+  [operations.DIVISION]: (left, right) => {
+    if (right === 0) {
+      throw new Error('Invalid operation');
+    }
+    return left / right;
+  },
   [operations.MULTIPLICATION]: (left, right) => left * right,
   [operations.SUBSTRACTION]: (left, right) => left - right,
   [operations.ADDITION]: (left, right) => left + right,

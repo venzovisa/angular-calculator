@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ButtonType, BUTTON_LABELS, BUTTON_ICONS } from './button.types';
+import { ButtonType, BUTTON_LABELS } from './button.types';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -18,10 +18,6 @@ export class ButtonComponent {
     return this.type === ButtonType.NUMBER
       ? this.value
       : BUTTON_LABELS[this.type];
-  }
-
-  get icon(): string | undefined {
-    return BUTTON_ICONS[this.type];
   }
 
   onClick(): void {

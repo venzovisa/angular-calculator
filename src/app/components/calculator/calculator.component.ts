@@ -1,33 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { MemoryService } from '../../services/memory.service';
-import { CalculationService } from '../../services/calculation.service';
-import { DisplayService } from '../../services/display.service';
-import { operations } from '../../models';
 import { ActivatedRoute } from '@angular/router';
 import { v4 as uuidv4 } from 'uuid';
-import { ButtonComponent } from './button/button.component';
-import { ButtonType } from './button/button.types';
-
-const INITIAL_DISPLAY = '0';
-const EMPTY_VALUE = '';
-
-type OperationFunction = (left: number, right: number) => number;
-
-const operationMap: Record<string, OperationFunction> = {
-  [operations.DIVISION]: (left, right) => left / right,
-  [operations.MULTIPLICATION]: (left, right) => left * right,
-  [operations.SUBSTRACTION]: (left, right) => left - right,
-  [operations.ADDITION]: (left, right) => left + right,
-  [operations.POWER]: (left, right) => Math.pow(left, right),
-  [operations.PERCENT]: (left, right) => left * (right / 100),
-  [operations.FACTORIAL]: (left) => {
-    const factorial = (n: number): number => {
-      if (n < 2) return n;
-      return n * factorial(n - 1);
-    };
-    return factorial(left);
-  },
-};
+import { MemoryService } from '../../services/memory/memory.service';
+import { CalculationService } from '../../services/calculation/calculation.service';
+import { DisplayService } from '../../services/display/display.service';
+import { operations } from '../../models';
+import { ButtonComponent } from '../button/button.component';
+import { ButtonType } from '../button/button.types';
 
 @Component({
   selector: 'app-calculator',

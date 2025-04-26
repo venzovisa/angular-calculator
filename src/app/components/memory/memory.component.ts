@@ -1,9 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { MemoryService } from '../../services/memory.service';
-import { MemoryItem } from '../../models';
-import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Observable } from 'rxjs';
+import { MemoryService } from '../../services/memory/memory.service';
+import { MemoryItem } from '../../models';
 
 @Component({
   selector: 'app-memory',

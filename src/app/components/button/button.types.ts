@@ -31,13 +31,3 @@ export const BUTTON_LABELS: Record<ButtonType, string> = {
   [ButtonType.DOT]: '.',
   [ButtonType.NUMBER]: '',
 };
-
-export const BUTTON_ICONS: Partial<Record<ButtonType, string>> = {
-  [ButtonType.REMOVE]: '⌫',
-  [ButtonType.SQRT]: '√',
-  [ButtonType.DIVISION]: '÷',
-  [ButtonType.MULTIPLICATION]: '×',
-  [ButtonType.ADDITION]: '+',
-  [ButtonType.SUBTRACTION]: '−',
-  [ButtonType.EQUALS]: '=',
-};
