@@ -6,7 +6,6 @@ import { NavigationComponent } from './navigation.component';
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
   let fixture: ComponentFixture<NavigationComponent>;
-  let router: Router;
   let routerEventsSubject: Subject<RouterEvent>;
 
   beforeEach(async () => {
@@ -34,7 +33,6 @@ describe('NavigationComponent', () => {
 
     fixture = TestBed.createComponent(NavigationComponent);
     component = fixture.componentInstance;
-    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 

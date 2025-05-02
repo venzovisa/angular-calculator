@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, Event } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -10,6 +10,8 @@ import { Router, RouterModule } from '@angular/router';
 export class NavigationComponent {
   activeRoute = '';
   constructor(router: Router) {
-    router.events.subscribe((url: any) => (this.activeRoute = url.url));
+    router.events.subscribe((event: Event) => {
+      if ('url' in event) this.activeRoute = event.url;
+    });
   }
 }

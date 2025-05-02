@@ -99,6 +99,7 @@ export class CalculatorComponent {
         result,
       });
     } catch (error) {
+      console.log(error);
       this.clearAll();
     }
   }

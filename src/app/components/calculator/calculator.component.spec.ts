@@ -11,7 +11,6 @@ class MockRouter {
 }
 
 describe('CalculatorComponent', () => {
-  let component: CalculatorComponent;
   let fixture: ComponentFixture<CalculatorComponent>;
 
   beforeEach(async () => {
@@ -26,7 +25,6 @@ describe('CalculatorComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(CalculatorComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 

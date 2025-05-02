@@ -10,8 +10,8 @@ import { CommonModule } from '@angular/common';
 })
 export class ButtonComponent {
   @Input() type: ButtonType = ButtonType.NUMBER;
-  @Input() value: string = '';
-  @Input() testId: string = '';
+  @Input() value = '';
+  @Input() testId = '';
   @Output() buttonClick = new EventEmitter<void>();
 
   get label(): string {

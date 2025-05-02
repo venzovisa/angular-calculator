@@ -1,9 +1,9 @@
-export type MemoryItem = {
+export interface MemoryItem {
   id: string;
   date: string;
   expression: string;
   result: number;
-};
+}
 
 export enum operations {
   ADDITION = '+',
